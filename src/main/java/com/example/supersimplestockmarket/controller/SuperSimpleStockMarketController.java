@@ -19,6 +19,7 @@ import com.example.supersimplestockmarket.model.StockType;
 import com.example.supersimplestockmarket.model.Trade;
 import com.example.supersimplestockmarket.model.TradeType;
 import com.example.supersimplestockmarket.service.stockmarket.StockMarketServiceImpl;
+import com.example.supersimplestockmarket.service.trading.TradingServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class SuperSimpleStockMarketController {
 
     @Autowired
     StockMarketServiceImpl stockMarketServiceImpl;
+
+    @Autowired
+    TradingServiceImpl tradingServiceImpl;
 
     @GetMapping("/")
     public String index() {
@@ -49,31 +53,24 @@ public class SuperSimpleStockMarketController {
 
     @GetMapping("/trades")
     public List<Trade> getTrades(@PathParam(value = "minutes") int minutes) {
-        LOGGER.info("getTrades for last {} minutes", minutes);
-        List<Trade> allTrades = new ArrayList<>();
-        allTrades.add(new Trade(1.4, 10, TradeType.PURCHASE, new Date()));
-        allTrades.add(new Trade(1.6, 3, TradeType.SALE, new Date()));
-        allTrades.add(new Trade(1.0, 15, TradeType.PURCHASE, new Date()));
-        return allTrades;
+        return tradingServiceImpl.getAllTrades(minutes);
+
     }
 
     @GetMapping("/trades/{id}")
     public Trade getTrade(@PathVariable(value = "id") int id) {
-        Trade trade = new Trade(1.2, 123, TradeType.PURCHASE, new Date());
-        LOGGER.info("getTrade with id {}", id);
-        return trade;
+        return tradingServiceImpl.retrieveTrade(id);
     }
 
-    @PutMapping("/trades/{id}")
-    public String saveTrade(@PathVariable(value = "id") int id) {
-        LOGGER.info("saveTrade with id {}", id);
-        return "savetrade";
+    @PutMapping("/trades")
+    public int saveTrade(@PathVariable(value = "id") int id, @RequestBody Trade newTrade) {
+        return tradingServiceImpl.saveTrade(newTrade);
     }
 
-    @GetMapping(value = "/stock-info/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public StockInfo getStockInfo(@PathVariable(value = "id") String id) {
+    @GetMapping(value = "/stock-info/{symbol}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StockInfo getStockInfo(@PathVariable(value = "symbol") String symbol) {
         StockInfo stock = new StockInfo("TEA", StockType.COMMON, 0, 2.0, 123);
-        LOGGER.info("getStockInfo with symbol {} stock {}", id, stock);
+        LOGGER.info("getStockInfo with symbol {} stock {}", symbol, stock);
         return stock;
     }
 

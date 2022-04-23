@@ -3,16 +3,26 @@ package com.example.supersimplestockmarket.model;
 import java.util.Date;
 
 public class Trade {
+    private String stockSymbol;
     private double price;
     private int quantity;
     private TradeType tradeType;
     private Date timeStamp;
 
-    public Trade(double price, int quantity, TradeType tradeType, Date timeStamp) {
+    public Trade(String stockSymbol, double price, int quantity, TradeType tradeType, Date timeStamp) {
+        this.stockSymbol = stockSymbol;
         this.price = price;
         this.quantity = quantity;
         this.tradeType = tradeType;
         this.timeStamp = timeStamp;
+    }
+
+    public String getStockSymbol() {
+        return this.stockSymbol;
+    }
+
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
 
     public double getPrice() {
