@@ -7,7 +7,7 @@ public class StockInfo {
     private double fixedDividend;
     private int parValue;
 
-    public StockInfo (String stockSymbol, StockType type, int lastDividend, double fixedDividend, int parValue) {
+    public StockInfo(String stockSymbol, StockType type, int lastDividend, double fixedDividend, int parValue) {
         this.symbol = stockSymbol;
         this.type = type;
         this.lastDividend = lastDividend;
@@ -55,5 +55,4 @@ public class StockInfo {
         this.parValue = parValue;
     }
 
-    
 }

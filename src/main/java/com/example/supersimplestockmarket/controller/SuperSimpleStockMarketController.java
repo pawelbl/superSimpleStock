@@ -1,5 +1,6 @@
 package com.example.supersimplestockmarket.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.example.supersimplestockmarket.model.StockInfo;
 import com.example.supersimplestockmarket.model.StockType;
 import com.example.supersimplestockmarket.model.Trade;
 import com.example.supersimplestockmarket.model.TradeType;
+import com.example.supersimplestockmarket.service.stockmarket.StockMarketServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,25 +27,28 @@ import org.slf4j.LoggerFactory;
 public class SuperSimpleStockMarketController {
     Logger LOGGER = LoggerFactory.getLogger(SuperSimpleStockMarketController.class);
 
-    @GetMapping("/") 
-    public String index(){
+    @Autowired
+    StockMarketServiceImpl stockMarketServiceImpl;
+
+    @GetMapping("/")
+    public String index() {
         return "Landing page";
     }
 
-    @GetMapping("/dividend-yield") 
-    public String getDividentYield(@PathParam(value = "value") double value){
-        LOGGER.info("getDivident called {}", value);
-        return "dividend-yield";
+    @GetMapping("/dividend-yield")
+    public double getDividentYield(@PathParam(value = "value") double value) {
+        LOGGER.info("Calling getDivident called {}", value);
+        return stockMarketServiceImpl.calculateDividentYield(value);
     }
 
-    @GetMapping("/pe-ratio") 
-    public String getPeRatio(@PathParam(value = "value") double value){
+    @GetMapping("/pe-ratio")
+    public String getPeRatio(@PathParam(value = "value") double value) {
         LOGGER.info("getPeRatio called {}", value);
         return "pe-ratio";
     }
 
-    @GetMapping("/trades") 
-    public List<Trade> getTrades(@PathParam(value = "minutes") int minutes){
+    @GetMapping("/trades")
+    public List<Trade> getTrades(@PathParam(value = "minutes") int minutes) {
         LOGGER.info("getTrades for last {} minutes", minutes);
         List<Trade> allTrades = new ArrayList<>();
         allTrades.add(new Trade(1.4, 10, TradeType.PURCHASE, new Date()));
@@ -52,28 +57,28 @@ public class SuperSimpleStockMarketController {
         return allTrades;
     }
 
-    @GetMapping("/trades/{id}") 
-    public Trade getTrade(@PathVariable(value = "id") int id){
+    @GetMapping("/trades/{id}")
+    public Trade getTrade(@PathVariable(value = "id") int id) {
         Trade trade = new Trade(1.2, 123, TradeType.PURCHASE, new Date());
         LOGGER.info("getTrade with id {}", id);
         return trade;
     }
 
-    @PutMapping("/trades/{id}") 
-    public String saveTrade(@PathVariable(value = "id") int id){
+    @PutMapping("/trades/{id}")
+    public String saveTrade(@PathVariable(value = "id") int id) {
         LOGGER.info("saveTrade with id {}", id);
         return "savetrade";
     }
 
-    @GetMapping(value = "/stock-info/{id}", produces = MediaType.APPLICATION_JSON_VALUE) 
-    public StockInfo getStockInfo(@PathVariable(value = "id") String id){
+    @GetMapping(value = "/stock-info/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StockInfo getStockInfo(@PathVariable(value = "id") String id) {
         StockInfo stock = new StockInfo("TEA", StockType.COMMON, 0, 2.0, 123);
         LOGGER.info("getStockInfo with symbol {} stock {}", id, stock);
         return stock;
     }
-    
-    @PutMapping(value = "/stock-info") 
-    public StockInfo setStockInfo(@RequestBody StockInfo stockSymbol){
+
+    @PutMapping(value = "/stock-info")
+    public StockInfo setStockInfo(@RequestBody StockInfo stockSymbol) {
         LOGGER.info("set StockInfo with stock {}", stockSymbol);
 
         return stockSymbol;
