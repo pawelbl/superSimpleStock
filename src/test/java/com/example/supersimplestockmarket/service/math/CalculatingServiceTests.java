@@ -22,8 +22,8 @@ public class CalculatingServiceTests {
     }
 
     @Test
-    void calculateDividentYieldPreffered() {
-        double result = CalculatingService.calculatePrefferedDividentYield(1.5, 1.00, 0.02);
+    void calculateDividentYieldPreferred() {
+        double result = CalculatingService.calculatePreferredDividentYield(1.5, 1.00, 0.02);
         assertEquals(0.013333333333333334, result);
     }
 

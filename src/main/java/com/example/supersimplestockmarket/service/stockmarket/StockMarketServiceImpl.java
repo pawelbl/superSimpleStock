@@ -29,6 +29,10 @@ public class StockMarketServiceImpl implements StockMarketService {
             throw new RuntimeException("Price cannot be 0 or negative value");
         }
 
+        if (stockSymbol.isEmpty()) {
+            throw new RuntimeException("Stock symbol cannot be empty");
+        }
+
         double result;
         StockInfo stockInfo = globalExchangeServiceImpl.getStockInfo(stockSymbol);
         double lastDividend;
@@ -43,7 +47,7 @@ public class StockMarketServiceImpl implements StockMarketService {
             fixedDividend = stockInfo.getFixedDividend();
             parValue = stockInfo.getParValue();
             parValue = parValue / 100;
-            result = CalculatingService.calculatePrefferedDividentYield(inputPrice, parValue, fixedDividend);
+            result = CalculatingService.calculatePreferredDividentYield(inputPrice, parValue, fixedDividend);
         }
 
         return result;

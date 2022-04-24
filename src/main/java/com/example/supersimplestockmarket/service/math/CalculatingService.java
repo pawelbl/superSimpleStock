@@ -8,7 +8,7 @@ public interface CalculatingService {
         return lastDividend / price;
     };
 
-    public static double calculatePrefferedDividentYield(double price, double parValue, double fixedDividend) {
+    public static double calculatePreferredDividentYield(double price, double parValue, double fixedDividend) {
         double dividend = 1.0;
         dividend = (fixedDividend * parValue) / price;
         return dividend;
