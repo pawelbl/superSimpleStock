@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.example.supersimplestockmarket.model.Trade;
-import com.example.supersimplestockmarket.service.dao.InMemoryDao.InMemoryDaoImpl;
+import com.example.supersimplestockmarket.service.dao.InMemoryTradesDao.InMemoryTradesDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 public class TradingServiceImpl implements TradingService {
 
     @Autowired
-    InMemoryDaoImpl inMemoryDaoImpl;
+    InMemoryTradesDaoImpl inMemoryDaoImpl;
 
     @Override
     public int saveTrade(Trade newTrade) {
@@ -47,10 +47,15 @@ public class TradingServiceImpl implements TradingService {
     }
 
     @Override
-    public List<Trade> getAllTrades(int minutes) {
+    public List<Trade> getAllTrades(String stockSymbol, int minutes) {
         Instant to = Instant.now();
         Instant from = to.minus(15, ChronoUnit.MINUTES);
-        return inMemoryDaoImpl.getAllTrades(from, to);
+        return inMemoryDaoImpl.getAllTrades(stockSymbol, from, to);
+    }
+
+    @Override
+    public List<Trade> getAllTrades() {
+        return inMemoryDaoImpl.getAllTrades();
     }
 
 }

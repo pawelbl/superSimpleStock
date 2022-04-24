@@ -37,20 +37,29 @@ public class SuperSimpleStockMarketController {
     }
 
     @GetMapping("/dividend-yield")
-    public double getDividentYield(@PathParam(value = "value") double value) {
-        LOGGER.info("Calling getDivident called {}", value);
-        return stockMarketServiceImpl.calculateDividentYield(value);
+    public double getDividentYield(@PathParam(value = "price") double price, @PathParam(value = "stock") String stock) {
+        LOGGER.info("Calling getDivident called with price {} stock {}", price, stock);
+        return stockMarketServiceImpl.calculateDividentYield(stock, price);
     }
 
     @GetMapping("/pe-ratio")
-    public String getPeRatio(@PathParam(value = "value") double value) {
-        LOGGER.info("getPeRatio called {}", value);
-        return "pe-ratio";
+    public double getPeRatio(@PathParam(value = "price") double price, @PathParam(value = "stock") String stock) {
+        return stockMarketServiceImpl.calculatePeRatio(stock, price);
+    }
+
+    @GetMapping("/VWSP")
+    public double getVWSP(@PathParam(value = "minutes") int minutes, @PathParam(value = "stock") String stock) {
+        return stockMarketServiceImpl.calculateVWSP(stock, minutes);
+    }
+
+    @GetMapping("/GBCE")
+    public double getGBCE() {
+        return stockMarketServiceImpl.calculateGBCE();
     }
 
     @GetMapping("/trades")
-    public List<Trade> getTrades(@PathParam(value = "minutes") int minutes) {
-        return tradingServiceImpl.getAllTrades(minutes);
+    public List<Trade> getTrades(@PathParam(value = "minutes") int minutes, @PathParam(value = "stock") String stock) {
+        return tradingServiceImpl.getAllTrades(stock, minutes);
 
     }
 

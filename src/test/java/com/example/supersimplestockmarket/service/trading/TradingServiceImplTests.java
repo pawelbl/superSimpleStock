@@ -3,6 +3,7 @@ package com.example.supersimplestockmarket.service.trading;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import com.example.supersimplestockmarket.model.Trade;
 import com.example.supersimplestockmarket.model.TradeType;
-import com.example.supersimplestockmarket.service.dao.InMemoryDao.InMemoryDaoImpl;
+import com.example.supersimplestockmarket.service.dao.InMemoryTradesDao.InMemoryTradesDaoImpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class TradingServiceImplTests {
 
     @Mock
-    private InMemoryDaoImpl inMemoryDaoImpl;
+    private InMemoryTradesDaoImpl inMemoryDaoImpl;
 
     @InjectMocks
     private TradingServiceImpl tradingServiceImpl;
@@ -128,10 +129,10 @@ public class TradingServiceImplTests {
 
     @Test
     void getAllTrades() {
-        when(inMemoryDaoImpl.getAllTrades(any(Instant.class), any(Instant.class))).thenReturn(allTrades);
-        List<Trade> result = tradingServiceImpl.getAllTrades(15);
+        when(inMemoryDaoImpl.getAllTrades(anyString(), any(Instant.class), any(Instant.class))).thenReturn(allTrades);
+        List<Trade> result = tradingServiceImpl.getAllTrades("TEA", 15);
         assertEquals(allTrades, result);
-        verify(inMemoryDaoImpl, times(1)).getAllTrades(any(Instant.class), any(Instant.class));
+        verify(inMemoryDaoImpl, times(1)).getAllTrades(anyString(), any(Instant.class), any(Instant.class));
     }
 
 }

@@ -10,6 +10,8 @@ public interface TradingService {
 
     public Trade getTrade(int id);
 
-    public  List<Trade> getAllTrades(int minutes);
+    public List<Trade> getAllTrades(String stockSymbol, int minutes);
+
+    public List<Trade> getAllTrades();
 
 }
