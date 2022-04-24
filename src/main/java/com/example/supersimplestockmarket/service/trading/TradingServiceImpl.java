@@ -1,5 +1,7 @@
 package com.example.supersimplestockmarket.service.trading;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.example.supersimplestockmarket.model.Trade;
@@ -40,13 +42,15 @@ public class TradingServiceImpl implements TradingService {
     }
 
     @Override
-    public Trade retrieveTrade(int id) {
+    public Trade getTrade(int id) {
         return inMemoryDaoImpl.getTrade(id);
     }
 
     @Override
     public List<Trade> getAllTrades(int minutes) {
-        return inMemoryDaoImpl.getAllTrades(minutes);
+        Instant to = Instant.now();
+        Instant from = to.minus(15, ChronoUnit.MINUTES);
+        return inMemoryDaoImpl.getAllTrades(from, to);
     }
 
 }

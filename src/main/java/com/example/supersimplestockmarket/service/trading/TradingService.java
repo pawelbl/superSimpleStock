@@ -8,7 +8,7 @@ public interface TradingService {
 
     public int saveTrade(Trade newTrade);
 
-    public Trade retrieveTrade(int id);
+    public Trade getTrade(int id);
 
     public  List<Trade> getAllTrades(int minutes);
 

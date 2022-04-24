@@ -1,15 +1,15 @@
 package com.example.supersimplestockmarket.model;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class Trade {
     private String stockSymbol;
     private double price;
     private int quantity;
     private TradeType tradeType;
-    private Date timeStamp;
+    private Instant timeStamp;
 
-    public Trade(String stockSymbol, double price, int quantity, TradeType tradeType, Date timeStamp) {
+    public Trade(String stockSymbol, double price, int quantity, TradeType tradeType, Instant timeStamp) {
         this.stockSymbol = stockSymbol;
         this.price = price;
         this.quantity = quantity;
@@ -49,11 +49,11 @@ public class Trade {
         this.tradeType = tradeType;
     }
 
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
         return this.timeStamp;
     }
 
-    public void setTimestamp(Date timeStamp) {
+    public void setTimestamp(Instant timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

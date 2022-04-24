@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -17,7 +15,6 @@ import javax.websocket.server.PathParam;
 import com.example.supersimplestockmarket.model.StockInfo;
 import com.example.supersimplestockmarket.model.StockType;
 import com.example.supersimplestockmarket.model.Trade;
-import com.example.supersimplestockmarket.model.TradeType;
 import com.example.supersimplestockmarket.service.stockmarket.StockMarketServiceImpl;
 import com.example.supersimplestockmarket.service.trading.TradingServiceImpl;
 
@@ -59,7 +56,7 @@ public class SuperSimpleStockMarketController {
 
     @GetMapping("/trades/{id}")
     public Trade getTrade(@PathVariable(value = "id") int id) {
-        return tradingServiceImpl.retrieveTrade(id);
+        return tradingServiceImpl.getTrade(id);
     }
 
     @PutMapping("/trades")
