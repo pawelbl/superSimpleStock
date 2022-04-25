@@ -87,14 +87,14 @@ public class StockMarketServiceTests {
     @Test
     void calculateDividentYieldIncorrectStock() {
         assertThrows(RuntimeException.class, () -> {
-            double result = stockMarketServiceImpl.calculatePeRatio("", 1);
+            stockMarketServiceImpl.calculatePeRatio("", 1);
         });
     }
 
     @Test
     void calculateDividentYieldIncorrectPrice() {
         assertThrows(RuntimeException.class, () -> {
-            double result = stockMarketServiceImpl.calculatePeRatio("POP", -1);
+            stockMarketServiceImpl.calculatePeRatio("POP", -1);
         });
     }
 
@@ -113,7 +113,7 @@ public class StockMarketServiceTests {
     @Test
     void calculatePeRatioIncorrectPrice() {
         assertThrows(RuntimeException.class, () -> {
-            double result = stockMarketServiceImpl.calculatePeRatio("", -1);
+            stockMarketServiceImpl.calculatePeRatio("", -1);
         });
     }
 
@@ -131,14 +131,14 @@ public class StockMarketServiceTests {
     @Test
     void calculateVWSPIncorrectStock() {
         assertThrows(RuntimeException.class, () -> {
-            double result = stockMarketServiceImpl.calculateVWSP("", minutes);
+            stockMarketServiceImpl.calculateVWSP("", minutes);
         });
     }
 
     @Test
     void calculateVWSPIncorrectMinutes() {
         assertThrows(RuntimeException.class, () -> {
-            double result = stockMarketServiceImpl.calculateVWSP(stockInfoCommon.getSymbol(), 0);
+            stockMarketServiceImpl.calculateVWSP(stockInfoCommon.getSymbol(), 0);
         });
     }
 

@@ -37,7 +37,7 @@ public class CalculatingServiceTests {
     @Test
     void calculatePeRatioInvalidInputDividendZero() {
         assertThrows(RuntimeException.class, () -> {
-            double result = CalculatingService.calculatePeRatio(1.5, 0);
+            CalculatingService.calculatePeRatio(1.5, 0);
         });
     }
     // GBCE

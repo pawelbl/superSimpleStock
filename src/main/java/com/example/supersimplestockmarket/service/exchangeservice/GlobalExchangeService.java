@@ -5,5 +5,5 @@ import com.example.supersimplestockmarket.model.StockInfo;
 public interface GlobalExchangeService {
     StockInfo getStockInfo(String stockSymbol);
 
-    void setStockInfo(StockInfo stock);
+    boolean setStockInfo(StockInfo stock);
 }

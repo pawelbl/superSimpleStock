@@ -1,7 +1,5 @@
 package com.example.supersimplestockmarket.service.exchangeservice;
 
-import java.util.Map;
-
 import com.example.supersimplestockmarket.model.StockInfo;
 import com.example.supersimplestockmarket.service.dao.InMemoryGlobalExchangeDao;
 
@@ -24,8 +22,9 @@ public class GlobalExchangeServiceImpl implements GlobalExchangeService {
     }
 
     @Override
-    public void setStockInfo(StockInfo stock) {
+    public boolean setStockInfo(StockInfo stock) {
         inMemoryGlobalExchangeDao.setStock(stock);
+        return true;
     }
 
 }
